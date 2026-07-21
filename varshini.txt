@@ -1,0 +1,114 @@
+
+SQL*Plus: Release 11.2.0.1.0 Production on Tue Jul 21 14:37:18 2026
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+Enter user-name: A061@db2021
+Enter password:
+
+Connected to:
+Oracle Database 11g Release 11.2.0.1.0 - Production
+
+SQL> create table employee(
+  2  empid number(10),
+  3  empname varchar(20),
+  4  gender char(1),
+  5  DOB date
+  6  );
+create table employee(
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> create table employee1(
+  2  empid number(15),
+  3  emp_name varchar(20),
+  4  gender char(5),
+  5  DOB date
+  6  );
+create table employee1(
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> create table employee11(
+  2  empid number(15),
+  3  empname varchar(20),
+  4  gender char(2),
+  5  DOB date
+  6  );
+
+Table created.
+
+SQL> dese employee11
+SP2-0734: unknown command beginning "dese emplo..." - rest of line ignored.
+SQL> desc employee11
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPID                                              NUMBER(15)
+ EMPNAME                                            VARCHAR2(20)
+ GENDER                                             CHAR(2)
+ DOB                                                DATE
+
+SQL> insert into employee11 values(101,"varshini","f","26feb2007");
+insert into employee11 values(101,"varshini","f","26feb2007")
+                                                 *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+SQL> insert into employee11 values(101,'varshini','F','26feb2007');
+
+1 row created.
+
+SQL> select * from employee11;
+
+     EMPID EMPNAME              GE DOB
+---------- -------------------- -- ---------
+       101 varshini             F  26-FEB-07
+
+SQL> create table employee24 as select EMPID from employee where 1>2;
+
+Table created.
+
+SQL> select * from employee24;
+
+no rows selected
+
+SQL> insert into employee11(&EMPID,&EMPNAME,&GENDER,&DOB);
+Enter value for empid: 26
+Enter value for empname: VARSHINI
+Enter value for gender: F
+Enter value for dob: 26feb2007
+old   1: insert into employee11(&EMPID,&EMPNAME,&GENDER,&DOB)
+new   1: insert into employee11(26,VARSHINI,F,26feb2007)
+insert into employee11(26,VARSHINI,F,26feb2007)
+                       *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> /
+Enter value for empid:
+Enter value for empname:
+Enter value for gender:
+Enter value for dob:
+old   1: insert into employee11(&EMPID,&EMPNAME,&GENDER,&DOB)
+new   1: insert into employee11(,,,)
+insert into employee11(,,,)
+                       *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> SELECT
+  2  COUNT(*)
+  3  FROM employee11;
+
+  COUNT(*)
+----------
+         1
+
+SQL>
