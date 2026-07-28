@@ -1,0 +1,350 @@
+
+SQL*Plus: Release 11.2.0.1.0 Production on Tue Jul 28 14:24:22 2026
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+Enter user-name: A061@db2021
+Enter password:
+
+Connected to:
+Oracle Database 11g Release 11.2.0.1.0 - Production
+
+SQL> create table employee(
+  2  empno number(4) primary key,
+  3  ename varchar2(20),
+  4  JOB date,
+  5  sal number(5);
+sal number(5)
+            *
+ERROR at line 5:
+ORA-00907: missing right parenthesis
+
+
+SQL> create table student(
+  2  Name Varchar2(20),
+  3
+SQL> create table student(
+  2  regno Varchar(20),
+  3  Name char(10),
+  4  Year Number(5),
+  5  Course char(15);
+Course char(15)
+              *
+ERROR at line 5:
+ORA-00907: missing right parenthesis
+
+
+SQL> create table student(
+  2  regno Varchar(20),
+  3  Name char(10),
+  4  Year Number(5),
+  5  Course char(15));
+create table student(
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> create table student1(
+  2  regno Varchar(20),
+  3  Name char(10),
+  4  Year Number(5),
+  5  Course char(15));
+
+Table created.
+
+SQL> desc student1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REGNO                                              VARCHAR2(20)
+ NAME                                               CHAR(10)
+ YEAR                                               NUMBER(5)
+ COURSE                                             CHAR(15)
+
+SQL> create table student2 as select* from student1;
+
+Table created.
+
+SQL> desc student2
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REGNO                                              VARCHAR2(20)
+ NAME                                               CHAR(10)
+ YEAR                                               NUMBER(5)
+ COURSE                                             CHAR(15)
+
+SQL> create table student3 as select regno,name,year,course from student1;
+
+Table created.
+
+SQL> desc student3
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REGNO                                              VARCHAR2(20)
+ NAME                                               CHAR(10)
+ YEAR                                               NUMBER(5)
+ COURSE                                             CHAR(15)
+
+SQL> insert into student1 values(11249A061,"varshini",3,cse);
+insert into student1 values(11249A061,"varshini",3,cse)
+                                 *
+ERROR at line 1:
+ORA-00917: missing comma
+
+
+SQL> insert into student1 values(11249a061,"varshini",3,cse);
+insert into student1 values(11249a061,"varshini",3,cse)
+                                 *
+ERROR at line 1:
+ORA-00917: missing comma
+
+
+SQL> insert into student1 values(11249061,"varshini",3,cse);
+insert into student1 values(11249061,"varshini",3,cse)
+                                                  *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+SQL> insert into student1 values(11249061,"varshini",3,"cse");
+insert into student1 values(11249061,"varshini",3,"cse")
+                                                  *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+SQL> insert into student1 values(11249061,'varshini',3,'cse');
+
+1 row created.
+
+SQL> select * from student1;
+
+REGNO                NAME             YEAR COURSE
+-------------------- ---------- ---------- ---------------
+11249061             varshini            3 cse
+
+SQL> create table student4 as select * from student1 where 1>2;
+
+Table created.
+
+SQL> desc student4
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REGNO                                              VARCHAR2(20)
+ NAME                                               CHAR(10)
+ YEAR                                               NUMBER(5)
+ COURSE                                             CHAR(15)
+
+SQL> create table student5 as select * from student1;
+
+Table created.
+
+SQL> select * from student5;
+
+REGNO                NAME             YEAR COURSE
+-------------------- ---------- ---------- ---------------
+11249061             varshini            3 cse
+
+SQL> create table student6 as select regno,name,year,course from student1 where 1>2;
+create table student6 as select regno,name,year,course from student1 where 1>2
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> create table student6 as select regno,name,year,course from student1;
+create table student6 as select regno,name,year,course from student1
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> create table student7 as select regno,name,year,course from student1 where 1>2;
+
+Table created.
+
+SQL> select from student7;
+select from student7
+       *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> select * from student7;
+
+no rows selected
+
+SQL> create table student8 as regno,name,year,course from student1;
+create table student8 as regno,name,year,course from student1
+                         *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> create table student8 as select regno,name,year,course from student1;
+
+Table created.
+
+SQL> select * from student8;
+
+REGNO                NAME             YEAR COURSE
+-------------------- ---------- ---------- ---------------
+11249061             varshini            3 cse
+
+SQL> alter table student1 modify name(20);
+alter table student1 modify name(20)
+                                *
+ERROR at line 1:
+ORA-00902: invalid datatype
+
+
+SQL> alter table student1 modify name char(20);
+
+Table altered.
+
+SQL> rename student8 to student eight
+  2
+SQL> rename student8 to student eight;
+rename student8 to student eight
+                           *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> rename student8 to student9;
+
+Table renamed.
+
+SQL> insert into student1(regno,name,year,course)values(11249061,'varshini',2,'cse');
+
+1 row created.
+
+SQL> select 8 from student1;
+
+         8
+----------
+         8
+         8
+
+SQL> select * from student1;
+
+REGNO                NAME                       YEAR COURSE
+-------------------- -------------------- ---------- ---------------
+11249061             varshini                      3 cse
+11249061             varshini                      2 cse
+
+SQL> insert into emp6 values(&regno,'&name',&year,'&course);
+Enter value for regno: 1149050
+Enter value for name: jhansi
+Enter value for year: 3
+Enter value for course: cse
+old   1: insert into emp6 values(&regno,'&name',&year,'&course)
+new   1: insert into emp6 values(1149050,'jhansi',3,'cse)
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> /
+Enter value for regno: 11249050
+Enter value for name: vaishu
+Enter value for year: 3
+Enter value for course: ece
+old   1: insert into emp6 values(&regno,'&name',&year,'&course)
+new   1: insert into emp6 values(11249050,'vaishu',3,'ece)
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> /
+Enter value for regno: 11
+Enter value for name: 'vaishu'
+Enter value for year: 3
+Enter value for course: 'cse'
+old   1: insert into emp6 values(&regno,'&name',&year,'&course)
+new   1: insert into emp6 values(11,''vaishu'',3,''cse')
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> insert into emp6 values(&regno,'&name',&year,'&course');
+Enter value for regno: 11249050
+Enter value for name: 'jhansi'
+Enter value for year: 3
+Enter value for course: 'cse'
+old   1: insert into emp6 values(&regno,'&name',&year,'&course')
+new   1: insert into emp6 values(11249050,''jhansi'',3,''cse'')
+insert into emp6 values(11249050,''jhansi'',3,''cse'')
+                                   *
+ERROR at line 1:
+ORA-00917: missing comma
+
+
+SQL> /
+Enter value for regno: 11249050,
+Enter value for name: 'jhansi',
+Enter value for year: 3,
+Enter value for course: 'cse'
+old   1: insert into emp6 values(&regno,'&name',&year,'&course')
+new   1: insert into emp6 values(11249050,,''jhansi',',3,,''cse'')
+insert into emp6 values(11249050,,''jhansi',',3,,''cse'')
+                                 *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> insert into student10 select * from student6*
+  2
+SQL> insert into student10 select * from student6*;
+insert into student10 select * from student6*
+                                            *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> insert into student10 select * from student6;
+insert into student10 select * from student6
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> insert into student10 select * from student8;
+insert into student10 select * from student8
+                                    *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> insert into student10(regno,name,year,course)select regno,name,year,course from student1;
+insert into student10(regno,name,year,course)select regno,name,year,course from student1
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> insert into student11(regno,name,year,course)select regno,name,year,course from student;
+insert into student11(regno,name,year,course)select regno,name,year,course from student
+                                                                    *
+ERROR at line 1:
+ORA-00904: "COURSE": invalid identifier
+
+
+SQL> insert into student20 select * from student8;
+insert into student20 select * from student8
+                                    *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> insert into student20 select * from student6;
+insert into student20 select * from student6
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> drop table student5;
+
+Table dropped.
+
+SQL>
