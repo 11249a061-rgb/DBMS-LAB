@@ -1,0 +1,39 @@
+
+SQL> desc course4;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COURSE_ID                                 NOT NULL NUMBER(5)
+ COURSE_NAME                               NOT NULL VARCHAR2(20)
+
+SQL> create table student30(
+  2  REG_NO NUMBER(10) PRIMARY KEY,
+  3  NAME VARCHAR(20) NOT NULL,
+  4  COURSE_ID NUMBER(5) REFERENCES COURSE(course_id),
+  5  EMAIL VARCHAR(25) UNIQUE,
+  6  GENDER CHAR DEFAULT 'F',
+  7  AGE NUMBER(4) CHECK (AGE>=17)
+  8  );
+Table created.
+
+SQL> desc student61;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REG_NO                                    NOT NULL NUMBER(10)
+ NAME                                      NOT NULL VARCHAR2(20)
+ EMAIL                                              VARCHAR2(25)
+ GENDER                                             CHAR(1)
+ AGE                                                NUMBER(4)
+
+SQL> insert into course4 values(061,'BE-CSE');
+
+1 row created.
+
+SQL> insert into student61 values(061,'varshini','varshini@gmail.com','f',19);
+
+1 row created.
+
+SQL> select * from student61;
+
+    REG_NO NAME                 EMAIL                     G        AGE
+---------- -------------------- ------------------------- - ----------
+        61 varshini             varshini@gmail.com        f         19
